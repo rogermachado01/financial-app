@@ -5,6 +5,7 @@ import LoginPage from '../views/login';
 export type RouteConfig = {
     path: string;
     component: () => JSX.Element;
+    always?: boolean
 }[]
 
 const routesConfig: RouteConfig = [{
