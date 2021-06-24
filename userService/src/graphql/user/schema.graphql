@@ -1,0 +1,28 @@
+scalar Date
+
+schema {
+  query: Query
+}
+
+type Query {
+  me: User!
+  user(id: ID!): User
+}
+
+enum Role {
+  USER,
+  ADMIN,
+}
+
+interface Node {
+  id: ID!
+}
+
+union SearchResult = User
+
+type User implements Node {
+  id: ID!
+  username: String!
+  email: String!
+  role: Role!
+}

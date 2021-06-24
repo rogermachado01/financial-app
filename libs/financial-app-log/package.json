@@ -1,0 +1,11 @@
+{
+  "name": "financial-app-login",
+  "version": "1.0.0",
+  "description": "Used to Roger machado Portfolio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roger Machado",
+  "license": "MIT"
+}
