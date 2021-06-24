@@ -9,6 +9,15 @@ type Query {
   user(id: ID!): User
 }
 
+type Mutation {
+  createUser(data: CreateUser): User!
+}
+
+input CreateUser {
+  password: String!
+  email: String!
+}
+
 enum Role {
   USER,
   ADMIN,
@@ -20,7 +29,8 @@ interface Node {
 
 type User implements Node {
   id: ID!
-  username: String!
-  email: String!
-  role: Role!
+  username: String
+  password: String
+  email: String
+  role: Role
 }

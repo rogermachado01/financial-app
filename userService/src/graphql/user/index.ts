@@ -1,3 +1,4 @@
+
 /*
  * ------------------------------------------------------
  * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
@@ -11,6 +12,11 @@ export enum Role {
     ADMIN = "ADMIN"
 }
 
+export interface CreateUser {
+    password: string;
+    email: string;
+}
+
 export interface Node {
     id: string;
 }
@@ -20,11 +26,14 @@ export interface IQuery {
     user(id: string): User | Promise<User>;
 }
 
-export interface User extends Node {
-    id: string;
-    username: string;
-    email: string;
-    role: Role;
+export interface IMutation {
+    createUser(data?: CreateUser): User | Promise<User>;
 }
 
-export type SearchResult = User;
+export interface User extends Node {
+    id: string;
+    username?: string;
+    password?: string;
+    email?: string;
+    role?: Role;
+}
