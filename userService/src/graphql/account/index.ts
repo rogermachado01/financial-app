@@ -1,3 +1,4 @@
+
 /*
  * ------------------------------------------------------
  * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
@@ -6,25 +7,19 @@
 
 /* tslint:disable */
 /* eslint-disable */
-export enum Role {
-    USER = "USER",
-    ADMIN = "ADMIN"
-}
-
 export interface Node {
     id: string;
 }
 
 export interface IQuery {
-    me(): User | Promise<User>;
-    user(id: string): User | Promise<User>;
+    me(): Account | Promise<Account>;
+    account(id: string): Account | Promise<Account>;
 }
 
-export interface User extends Node {
+export interface Account extends Node {
     id: string;
     username: string;
     email: string;
-    role: Role;
 }
 
-export type SearchResult = User;
+export type SearchResult = Account;

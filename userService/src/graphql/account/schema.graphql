@@ -5,22 +5,19 @@ schema {
 }
 
 type Query {
-  me: User!
-  user(id: ID!): User
+  me: Account!
+  account(id: ID!): Account
 }
 
-enum Role {
-  USER,
-  ADMIN,
-}
 
 interface Node {
   id: ID!
 }
 
-type User implements Node {
+union SearchResult = Account
+
+type Account implements Node {
   id: ID!
   username: String!
   email: String!
-  role: Role!
 }

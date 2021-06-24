@@ -1,6 +1,6 @@
 const { join } = require('path');
 
-const outputAs = { outputAs: 'class' };
+const outputAs = { outputAs: 'Interface' };
 
 const userDefinitions = {
   typePaths: ['src/graphql/user/schema.graphql'],
@@ -8,4 +8,10 @@ const userDefinitions = {
   ...outputAs,
 };
 
-module.exports = { userDefinitions }
+const accountDefinitions = {
+  typePaths: ['src/graphql/account/schema.graphql'],
+  path: join(process.cwd(), 'src/graphql/account/index.ts'),
+  ...outputAs,
+};
+
+module.exports = { userDefinitions, accountDefinitions }

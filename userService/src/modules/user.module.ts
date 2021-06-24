@@ -8,7 +8,7 @@ import { UserResolver } from 'src/graphql/user/user.resolver';
       useFactory: () => ({
         typePaths: ['src/graphql/user/schema.graphql'],
         playground: true,
-        path: 'graphql',
+        path: 'graphql/user',
         resolvers: UserResolver,
       }),
     }),
