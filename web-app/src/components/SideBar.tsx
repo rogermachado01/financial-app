@@ -29,16 +29,17 @@ function SideBar() {
     {
         path: "./profits",
         icon: "icon",
-        label: "Profis"
+        label: "Profit"
     },
     {
         path: "./profile",
         icon: "icon",
         label: "Profile"
     }]
+
     return (
       <>
-        <Button colorScheme="teal" onClick={onOpen}>
+        <Button sx={{ position: 'absolute' }} colorScheme="teal" onClick={onOpen}>
           Open
         </Button>
         <Drawer

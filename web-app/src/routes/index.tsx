@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import LoginPage from '../views/login';
+import LoginPage from '../views/Login';
+import Wallet from "../views/Wallet";
 
 export type RouteConfig = {
     path: string;
@@ -11,7 +12,10 @@ export type RouteConfig = {
 const routesConfig: RouteConfig = [{
     "path": "/login",
     "component": LoginPage
-}]
+  },{
+    "path": "/wallet",
+    "component": Wallet
+  }]
 
 const Routes = (routes: RouteConfig) => {
   return (
