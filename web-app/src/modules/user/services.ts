@@ -1,5 +1,6 @@
-import { gql } from "@apollo/client";
-import { customClient } from "../apolloClient"
+import { gql, HttpLink } from "@apollo/client";
+import { client } from "../apolloClient"
+const link = new HttpLink({ uri: 'http://localhost:8080/graphql/user'})
 
 const GET_USER = gql`
     query {
@@ -8,9 +9,10 @@ const GET_USER = gql`
       }
     }
   `;
-  
+
 export function CreateUser() {
-  const data = customClient('user').query({ query: GET_USER })
+  client.setLink(link)
+  const data = client.query({ query: GET_USER })
 
   return { data }
 }
