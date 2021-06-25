@@ -1,28 +1,47 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { CreateUser } from './services'
+import { createUser } from './services'
 
 interface UserState {
-    value: number
+  loading: boolean
+    user: {
+      email: string
+      id: string
+      username: string
+    }
 }
 
 const initialState: UserState = {
-    value: 0
+  loading: false,
+    user: {
+      email: '',
+      id: '',
+      username: '',
+    }
 }
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: 'userState',
   initialState,
+    extraReducers: (builder) => {
+      // Add reducers for additional action types here, and handle loading state as needed
+      builder.addCase(createUser.fulfilled, (state, action) => {
+        // Add user to the state array
+        console.log('FULFILLED', createUser.typePrefix)
+        state.user = action.payload
+      })
+
+      builder.addCase(createUser.pending, (state, action) => {
+        // Add user to the state array
+        console.log('PENDING', createUser.typePrefix)
+        state.loading = true
+      })
+    },
   reducers: {
     create: (state) => {
-        const { data } = CreateUser()
-        console.log(data)
-        state.value += 1
     },
     login: (state) => {
-      state.value -= 1
     },
     update: (state, action) => {
-      state.value += action.payload
     },
   },
 })
@@ -31,3 +50,4 @@ export const userSlice = createSlice({
 export const { create, login, update } = userSlice.actions
 
 export default userSlice.reducer
+
