@@ -1,0 +1,4 @@
+docker pull postgres:alpine
+docker run --name postgres -e POSTGRES_PASSWORD=teste -e POSTGRES_USER=teste -p 5432:5432 -d postgres:alpine
+docker exec -it postgres bash
+psql -U teste

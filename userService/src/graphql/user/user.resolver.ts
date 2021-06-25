@@ -2,7 +2,8 @@ import { IResolvers } from 'apollo-server-express';
 import { IQuery, IMutation, User, CreateUser } from '.';
 
 const Mutation = {
-  createUser: (parent, { data }, ctx, info): User => {
+  createUser: (parent, { data }, ctx, { dataSources }): User => {
+    console.log(dataSources);
     console.log(data);
     return {
       email: data.email,

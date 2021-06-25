@@ -16,6 +16,14 @@ type Mutation {
   updateAddress(data: UpdateAddress!): User!
 }
 
+input UpdateAddress {
+  id: ID!
+}
+
+input UpdatePersonalInfo {
+  id: ID!
+}
+
 input CreateUser {
   password: String!
   email: String!
