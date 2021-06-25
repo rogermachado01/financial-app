@@ -30,7 +30,7 @@ const Wallet = () => {
     return (
         <Flex height="100Vh" alignItems="center" backgroundColor={backgroundColor} p={12} justifyContent="center">
             <Container>
-                <Flex direction="row" alignItems="top" >
+                <Flex alignItems="top" wrapContent>
                     { dash.map(card => <Card title={card.title} text={card.description} backgroundColor={card.backgroundColor} />) }
                 </Flex>
             </Container>
