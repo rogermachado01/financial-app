@@ -2,15 +2,18 @@ scalar Date
 
 schema {
   query: Query
+  mutation: Mutation
 }
 
 type Query {
   me: User!
-  user(id: ID!): User
+  user(userId: ID!): User
 }
 
 type Mutation {
   createUser(data: CreateUser): User!
+  updatePersonalInfo(data: UpdatePersonalInfo!): User!
+  updateAddress(data: UpdateAddress!): User!
 }
 
 input CreateUser {
@@ -23,14 +26,34 @@ enum Role {
   ADMIN,
 }
 
-interface Node {
+type User {
   id: ID!
+  accountId: ID
+  password: String!
+  email: String!
+  role: Role
+  address: Address
+  personalInfo: PersonalInfo
 }
 
-type User implements Node {
+type Address {
   id: ID!
-  username: String
-  password: String
-  email: String
-  role: Role
+  zipcode: String
+  street: String
+  country: String
+  city: String
+  state: String
+  number: String
+  userId: ID!
+}
+
+type PersonalInfo {
+  id: ID!
+  fullName: String
+  birthDate: Date
+  personalIdentifier: String
+  motherName: String
+  fatherName: String
+  scolarship: String
+  userId: ID!
 }

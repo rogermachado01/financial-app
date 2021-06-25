@@ -2,22 +2,47 @@ scalar Date
 
 schema {
   query: Query
+  mutation: Mutation
 }
 
 type Query {
   me: Account!
   account(id: ID!): Account
+  transactions(id: ID!): Transaction!
 }
 
-
-interface Node {
-  id: ID!
+type Mutation {
+  setTransaction(data: SetTransaction!): Transaction!
 }
 
-union SearchResult = Account
+input SetTransaction {
+  date: Date!
+  operation: Operation!
+  value: Float!
+}
 
-type Account implements Node {
+enum AccountType {
+  SAVING,
+  CHECKING
+}
+
+type Account {
   id: ID!
-  username: String!
-  email: String!
+  userId: ID!
+  type: AccountType!
+  balance: Float!
+  lastBalanceUpdate: Date
+}
+
+enum Operation {
+  MINUS,
+  PLUS
+}
+
+type Transactions {
+  accountId: ID!
+  id: ID!
+  date: Date!
+  operation: Operation!
+  value: Float!
 }
