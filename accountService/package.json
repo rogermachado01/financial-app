@@ -19,7 +19,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "gen:graphql-ts": "node ./src/graphql/generator/mainFactory.js"
+    "gen:graphql-ts": "node ./src/graphql/generator/mainFactory.js",
+    "gen:prisma-client": "npx prisma generate",
+    "gen:prisma-postgre": "npx prisma migrate dev --name init"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.15",

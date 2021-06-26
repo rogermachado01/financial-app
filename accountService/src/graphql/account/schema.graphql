@@ -13,25 +13,33 @@ type Query {
 
 type Mutation {
   setTransaction(data: SetTransaction!): Transactions!
+  createAccount(data: createAccount!): Account!
+}
+input createAccount {
+  userId: Int
+  type: AccountType!
+  balance: Float!
 }
 
 input SetTransaction {
-  date: Date!
+  accountId: Int
   operation: Operation!
   value: Float!
 }
 
 type Account {
-  id: ID!
+  id: ID
   userId: ID!
   type: AccountType!
   balance: Float!
-  lastBalanceUpdate: Date
+  updatedAt: Date
+  createdAt: Date
+  transactions: [Transactions]
 }
 
 type Transactions {
-  fromAccountId: ID!
-  toAccountId: ID!
+  account: Account
+  accountId: ID!
   id: ID!
   date: Date!
   operation: Operation!

@@ -8,10 +8,5 @@ const userDefinitions = {
   ...outputAs,
 };
 
-const accountDefinitions = {
-  typePaths: ['src/graphql/account/schema.graphql'],
-  path: join(process.cwd(), 'src/graphql/account/index.ts'),
-  ...outputAs,
-};
 
-module.exports = { userDefinitions, accountDefinitions }
+module.exports = { userDefinitions }

@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AccountResolver } from 'src/graphql/account/account.resolver';
-import { Prisma, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { DataSource } from 'apollo-datasource';
-import { DataSources } from 'apollo-server-core/dist/graphqlOptions';
 export class PrismaAccountData extends DataSource {
   db: PrismaClient;
 
