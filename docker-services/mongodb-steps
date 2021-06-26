@@ -1,0 +1,2 @@
+docker pull mongo:bionic
+docker run --name mongo -e MONGO_INITDB_ROOT_USERNAME=teste -e MONGO_INITDB_ROOT_PASSWORD=teste -p 27017:27017 -d mongo:bionic
