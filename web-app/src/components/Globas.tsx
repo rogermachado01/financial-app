@@ -4,7 +4,7 @@ const ThemeComponentConfigs = () => {
     const { toggleColorMode } = useColorMode()
 
     return (
-        <Flex sx={{ position: 'absolute', bottom: 0 }}>
+        <Flex sx={{ position: 'absolute', top: 0, right: 0 }}>
             <Button onClick={toggleColorMode}>Toggle Color</Button>
         </Flex>
     )

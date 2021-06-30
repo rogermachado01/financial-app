@@ -8,8 +8,7 @@ type CardInfo = {
 
 const Card = (props: CardInfo) => {
     return (
-        <Flex>
-            <Box m={6} p={8} minW={150} minH={250}
+            <Flex m={6} p={8} minW={150} minH={250}
                 shadow="md" 
                 borderWidth="1px" 
                 borderRadius="20px" 
@@ -17,8 +16,7 @@ const Card = (props: CardInfo) => {
                 backgroundColor={props.backgroundColor}>
                 <Heading fontSize="xl">{props.title}</Heading>
                 <Text mt={4}>{props.text}</Text>
-            </Box>
-        </Flex>
+            </Flex>
     )
 };
 

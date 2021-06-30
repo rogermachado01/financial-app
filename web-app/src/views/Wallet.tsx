@@ -28,13 +28,11 @@ const Wallet = () => {
     }]
     const backgroundColor = useColorModeValue('white.100', 'white.800');
     return (
-        <Flex height="100Vh" alignItems="center" backgroundColor={backgroundColor} p={12} justifyContent="center">
-            <Container>
-                <Flex alignItems="top" wrapContent>
-                    { dash.map(card => <Card title={card.title} text={card.description} backgroundColor={card.backgroundColor} />) }
-                </Flex>
-            </Container>
-        </Flex>
+        <Container height="100Vh" backgroundColor={backgroundColor}>
+            <Flex alignItems="center" justifyContent="space-between">
+                { dash.map(card => <Card title={card.title} text={card.description} backgroundColor={card.backgroundColor} />) }
+            </Flex>
+        </Container>
     )
 }
 

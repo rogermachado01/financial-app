@@ -9,7 +9,7 @@ function App() {
   return (
     <React.Fragment>
       <ThemeComponentConfigs/>
-      <TopMenu/>
+      {/* <TopMenu/> */}
       <Routes/>
     </React.Fragment>
   );
