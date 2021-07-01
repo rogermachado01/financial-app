@@ -40,23 +40,31 @@ const LoginPage = () => {
                 </Flex>
                 <Flex height="100Vh" justifyContent="center" direction="column" minWidth={450} backgroundColor={backgroundColor} p={12} mr={24} boxShadow="lg">
                     <Heading>{user.email}</Heading>
-                    <label>Email</label>
                     <Input
                         mt={2}
-                        placeholder="roger@portfolio.com"
+                        p={8}
+                        borderRadius={30}
+                        fontSize={14}
+                        shadow='xl'
+                        placeholder="Insert you email"
                         variant="filled"
                         mb={3}
                         type="email"
                         onChange={(input) => setLogin({ ...login, email: input.target.value })}
                     />
-                    <label>Password</label>
-                    <InputGroup mt={2}>
-                        <Input placeholder="********" variant="filled" mb={6} type="password" onChange={(input) => setLogin({ ...login, password: input.target.value })} ></Input>
-                        <InputRightAddon children={<ViewIcon color="gray.500" />} />
-                    </InputGroup>
-                    <Button mb={6} color="whiteAlpha.900" backgroundColor="purple.700" onClick={() => handleClick('LOGIN')}>Login</Button>
-                    {/*                 <Button mb={6} backgroundColor="aquamarine" onClick={() => handleClick('SIGNUP')}>Sign Up</Button>
- */}            </Flex>
+                    <Input p={8}
+                        borderRadius={30}
+                        fontSize={14}
+                        shadow='xl'
+                        placeholder="Insert you password"
+                        variant="filled"
+                        mb={6}
+                        type="password"
+                        onChange={(input) => setLogin({ ...login, password: input.target.value })} >
+                    </Input>
+                    {/*<Button mb={6} color="whiteAlpha.900" backgroundColor="purple.700" onClick={() => handleClick('LOGIN')}>Login</Button>*/}
+                    {/*<Button mb={6} backgroundColor="aquamarine" onClick={() => handleClick('SIGNUP')}>Sign Up</Button> */}
+                </Flex>
             </Flex>
         </>
     )
