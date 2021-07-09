@@ -1,11 +1,9 @@
 package main
 
-import (
-	"github.com/rogermachado01/financialapp/fs-crypto/entity"
-)
+import "github.com/rogermachado01/financialapp/fs-crypto/webserver"
 
 func main() {
-	block := entity.Block{}
-	block.Genesis()
-	block.ToString()
+	s := webserver.WebServer{}
+	s.Server()
+
 }
