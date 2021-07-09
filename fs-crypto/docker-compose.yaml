@@ -1,0 +1,10 @@
+version: "3"
+
+services: 
+    app:
+        build: .
+        container_name: fscrypto
+        volumes: 
+            - .:/go/src
+        ports: 
+            - 8585:8585
