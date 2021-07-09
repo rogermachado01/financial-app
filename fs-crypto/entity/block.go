@@ -1,7 +1,6 @@
 package entity
 
 import (
-	"bytes"
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
@@ -14,7 +13,7 @@ type Block struct {
 	Timestamp int64
 	Hash      [32]byte
 	LastHash  [32]byte
-	Data      bytes.Buffer
+	Data      []byte
 }
 
 func (b *Block) ToString() {
@@ -33,21 +32,17 @@ func (b *Block) Get() Block {
 	block.Data = b.Data
 	block.Hash = b.Hash
 	block.LastHash = b.LastHash
-	fmt.Println(block)
 	return block
 }
 
 func (b *Block) Genesis() {
-	var byt bytes.Buffer // A Buffer needs no initialization.
-	byt.Write([]byte("HELLO SF COIN"))
-
-	b.Data = byt
+	b.Data = []byte("HELLO SF COIN")
 	b.Timestamp = time.Now().UnixNano()
 	b.Hash = sha256.Sum256([]byte("sdasdas-123as-23asd"))
 	b.LastHash = sha256.Sum256([]byte("asdcasd-adc2"))
 }
 
-func (b *Block) MineBlock(lastBlock Block, data bytes.Buffer) {
+func (b *Block) MineBlock(lastBlock Block, data []byte) {
 	timestamp := time.Now().UnixNano()
 	lastHash := lastBlock.Hash
 	hash := createHash(timestamp, data, lastHash)
@@ -59,11 +54,11 @@ func (b *Block) MineBlock(lastBlock Block, data bytes.Buffer) {
 
 }
 
-func createHash(timestamp int64, data bytes.Buffer, lastHash [32]byte) [32]byte {
+func createHash(timestamp int64, data []byte, lastHash [32]byte) [32]byte {
 
 	lastHashString := hex.EncodeToString(lastHash[:])
-
-	s := []string{strconv.FormatInt(timestamp, 10), lastHashString, data.String()}
+	dataToString := string(data[:])
+	s := []string{strconv.FormatInt(timestamp, 10), lastHashString, dataToString}
 
 	hash := sha256.Sum256([]byte(strings.Join(s, "-")))
 	return hash
