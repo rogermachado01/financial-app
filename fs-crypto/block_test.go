@@ -8,26 +8,28 @@ import (
 )
 
 func TestBlock(t *testing.T) {
+	fmt.Println(" ---- Block Tests -----")
+
 	block := entity.Block{}
 	block.Genesis()
-	cb := block.Get()
+	initialBlock := block.Get()
 
-	if cb.Timestamp < 0 {
+	if block.Timestamp < 0 {
 		t.Errorf("Block Genesis not created")
 		t.FailNow()
 	}
 
 	fmt.Println(" -> Block was generated successfully!")
-	block.ToString()
+	// block.ToString()
 
 	block.MineBlock(block, []byte("{as:as}"))
 
-	if block.LastHash != cb.Hash {
+	if block.LastHash != initialBlock.Hash {
 		t.Errorf("Block not mined")
 		t.FailNow()
 	}
 
 	fmt.Println(" -> Block was mined successfully!")
-	block.ToString()
+	// block.ToString()
 
 }

@@ -64,3 +64,8 @@ func createHash(timestamp int64, data []byte, lastHash [32]byte) [32]byte {
 	return hash
 
 }
+
+func BlockHash(block Block) [32]byte {
+	hash := createHash(block.Timestamp, block.Data, block.LastHash)
+	return hash
+}
