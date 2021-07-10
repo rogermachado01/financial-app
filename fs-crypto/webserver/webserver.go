@@ -6,20 +6,20 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/rogermachado01/financialapp/fs-crypto/entity"
+	cachestorage "github.com/rogermachado01/financialapp/fs-crypto/cache"
 )
 
 type WebServer struct {
-	blockchain entity.BlockChain
+	storage *cachestorage.CacheStorage
 }
 
-func (w *WebServer) Server() {
+func (w *WebServer) Server(storage *cachestorage.CacheStorage) {
 	// Init web server
 	e := echo.New()
 
+	storage.Init()
 	// Init blockchain
-	w.blockchain = entity.BlockChain{}
-	w.blockchain.Init()
+	w.storage = storage
 
 	// Add api endpoints
 	e.GET("/blocks", w.blocks)
@@ -29,7 +29,8 @@ func (w *WebServer) Server() {
 }
 
 func (w *WebServer) blocks(c echo.Context) error {
-	return c.JSON(http.StatusOK, w.blockchain)
+	w.storage.GetBlock()
+	return c.JSON(http.StatusOK, "")
 }
 
 type MineDTO struct {
@@ -42,9 +43,9 @@ func (w *WebServer) mine(c echo.Context) error {
 		return errors.New("Empty body")
 	}
 
-	w.blockchain.AddBlock([]byte(m.Data))
+	w.storage.AddBlock([]byte(m.Data))
 
-	fmt.Println(len(w.blockchain.Blocks))
+	fmt.Println("")
 
 	return c.JSON(http.StatusOK, m)
 }

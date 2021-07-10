@@ -1,6 +1,9 @@
 package entity
 
-import "fmt"
+import (
+	json "encoding/json"
+	"fmt"
+)
 
 type BlockChain struct {
 	Blocks []Block
@@ -16,6 +19,14 @@ func (b *BlockChain) AddBlock(data []byte) {
 	newBlock := Block{}
 	newBlock.MineBlock(b.Blocks[len(b.Blocks)-1], data)
 	b.Blocks = append(b.Blocks, newBlock)
+}
+
+func (b *BlockChain) StringfyBlocks() (string, error) {
+
+	str, err := json.Marshal(b.Blocks)
+	fmt.Println(string(str))
+
+	return string(str), err
 }
 
 func (b *BlockChain) IsValid(blockChain BlockChain) bool {
