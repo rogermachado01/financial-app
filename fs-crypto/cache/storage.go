@@ -10,14 +10,10 @@ import (
 type CacheStorage struct {
 	blockchain *entity.BlockChain
 	db         *badger.DB
+	nodeId     string
 }
 
 func (c *CacheStorage) InitBlockChain(blockchain *entity.BlockChain) {
-	// Open the Badger database located in the /tmp/badger directory.
-	// It will be created if it doesn't exist.
-	blockchain.Init()
-
-	c.blockchain = blockchain
 
 	db, err := badger.Open(badger.DefaultOptions("").WithInMemory(true))
 	if err != nil {
@@ -28,21 +24,38 @@ func (c *CacheStorage) InitBlockChain(blockchain *entity.BlockChain) {
 
 	c.db = db
 
-	c.db.Update(func(txn *badger.Txn) error {
+	err = c.GetBlock()
+
+	if err.Error() == "Key not found" {
+		fmt.Println("Key not found")
+		blockchain.Init()
+		c.blockchain = blockchain
+	}
+
+	fmt.Println(c.blockchain)
+
+	err = c.db.Update(func(txn *badger.Txn) error {
 
 		str, err := c.blockchain.StringfyBlocks()
 		if err != nil {
 			return err
 		}
+
 		txn.Set([]byte("block"), []byte(str))
+
+		fmt.Println("updated", str)
 		return nil
 	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func (c *CacheStorage) Init() {
 	// Open the Badger database located in the /tmp/badger directory.
 	// It will be created if it doesn't exist.
-	db, err := badger.Open(badger.DefaultOptions("/tmp/badger"))
+	db, err := badger.Open(badger.DefaultOptions("").WithInMemory(true))
 
 	if err != nil {
 		log.Fatal(err)
@@ -66,7 +79,6 @@ func (c *CacheStorage) AddBlock(data []byte) error {
 }
 
 func (c *CacheStorage) GetBlock() error {
-	// fmt.Println("Get block", c.blockchain.Blocks)
 
 	err := c.db.View(func(txn *badger.Txn) error {
 		item, err := txn.Get([]byte("block"))
@@ -76,11 +88,11 @@ func (c *CacheStorage) GetBlock() error {
 		}
 
 		err = item.Value(func(val []byte) error {
-			// This func with val would only be called if item.Value encounters no error.
-
 			// Accessing val here is valid.
-			fmt.Printf("The answer is: %s\n", val)
-
+			fmt.Println(val)
+			/* c.blockchain.Blocks = json.Unmarshal(val, &c.blockchain.Blocks); err != nil {
+				log.Fatal(err)
+			} */
 			return nil
 		})
 
@@ -88,9 +100,12 @@ func (c *CacheStorage) GetBlock() error {
 			return err
 		}
 
-		fmt.Println("Item", item)
 		return nil
 	})
 
-	return err
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

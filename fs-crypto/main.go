@@ -2,31 +2,32 @@ package main
 
 import (
 	"fmt"
-	cachestorage "github.com/rogermachado01/financialapp/fs-crypto/cache"
-	entity "github.com/rogermachado01/financialapp/fs-crypto/entity"
-	p2pserver "github.com/rogermachado01/financialapp/fs-crypto/p2p-server"
-	webserver "github.com/rogermachado01/financialapp/fs-crypto/webserver"
-	"os"
+	"net/http"
 )
 
 func main() {
-	if os.Getenv("SV") == "NET" {
-		fmt.Println("Initializing blockchain and p2p network...")
-		blockchain := entity.BlockChain{}
-		blockchain.Init()
 
-		storage := cachestorage.CacheStorage{}
-		storage.InitBlockChain(&blockchain)
+	server := []string{":8080", ":8081"}
+	ch := make(chan string)
 
-		p2p := p2pserver.Server{}
-		p2p.Init(&storage)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("hello world"))
+		ch <- r.Host
+	})
+
+	for i, s := range server {
+		fmt.Println(s, i)
+		go testServer(s, ch)
 	}
 
-	if os.Getenv("SV") == "API" {
-		fmt.Println("Initializing API...")
-		storage := cachestorage.CacheStorage{}
-		s := webserver.WebServer{}
-		s.Server(&storage)
+	for s := range ch {
+		fmt.Println(s)
 	}
 
+}
+
+func testServer(p string, c chan string) {
+	fmt.Println("linsten on ", p)
+	http.ListenAndServe(p, nil)
+	c <- "linsten on "
 }

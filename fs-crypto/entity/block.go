@@ -13,7 +13,7 @@ type Block struct {
 	Timestamp int64
 	Hash      [32]byte
 	LastHash  [32]byte
-	Data      []byte
+	Data      string
 }
 
 func (b *Block) ToString() {
@@ -36,7 +36,7 @@ func (b *Block) Get() Block {
 }
 
 func (b *Block) Genesis() {
-	b.Data = []byte("HELLO SF COIN")
+	b.Data = "HELLO SF COIN"
 	b.Timestamp = time.Now().UnixNano()
 	b.Hash = sha256.Sum256([]byte("sdasdas-123as-23asd"))
 	b.LastHash = sha256.Sum256([]byte("asdcasd-adc2"))
@@ -50,7 +50,7 @@ func (b *Block) MineBlock(lastBlock Block, data []byte) {
 	b.LastHash = lastHash
 	b.Hash = hash
 	b.Timestamp = timestamp
-	b.Data = data
+	b.Data = string(data[:])
 
 }
 
@@ -66,6 +66,6 @@ func createHash(timestamp int64, data []byte, lastHash [32]byte) [32]byte {
 }
 
 func BlockHash(block Block) [32]byte {
-	hash := createHash(block.Timestamp, block.Data, block.LastHash)
+	hash := createHash(block.Timestamp, []byte(block.Data), block.LastHash)
 	return hash
 }

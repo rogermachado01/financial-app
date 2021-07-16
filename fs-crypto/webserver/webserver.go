@@ -16,9 +16,6 @@ type WebServer struct {
 func (w *WebServer) Server(storage *cachestorage.CacheStorage) {
 	// Init web server
 	e := echo.New()
-
-	storage.Init()
-	// Init blockchain
 	w.storage = storage
 
 	// Add api endpoints

@@ -24,7 +24,6 @@ func (b *BlockChain) AddBlock(data []byte) {
 func (b *BlockChain) StringfyBlocks() (string, error) {
 
 	str, err := json.Marshal(b.Blocks)
-	fmt.Println(string(str))
 
 	return string(str), err
 }
@@ -41,11 +40,8 @@ func (b *BlockChain) IsValid(blockChain BlockChain) bool {
 		}
 
 		lastBlock := b.Blocks[i-1]
-		// fmt.Println("here2", lastBlock.Hash != block.LastHash)
-		// fmt.Println("here3", block.Hash != BlockHash(block))
 		if lastBlock.Hash != block.LastHash ||
 			block.Hash != BlockHash(block) {
-			// fmt.Println("here4")
 			return false
 		}
 	}

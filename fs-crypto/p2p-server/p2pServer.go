@@ -29,10 +29,8 @@ type Server struct {
 const protocolID = "/example/1.0.0"
 const discoveryNamespace = "example"
 
-func (s *Server) Init(storage *cachestorage.CacheStorage) {
+func (sv *Server) Init(storage *cachestorage.CacheStorage) {
 	// Add -peer-address flag
-	s.storage = storage
-
 	peerAddr := flag.String("peer-address", "", "peer address")
 	flag.Parse()
 
@@ -57,7 +55,7 @@ func (s *Server) Init(storage *cachestorage.CacheStorage) {
 	//
 	// This gets called every time a peer connects and opens a stream to this node.
 	host.SetStreamHandler(protocolID, func(s network.Stream) {
-		go writeCounter(s)
+		go sendChain(s)
 		go readCounter(s)
 	})
 
@@ -100,7 +98,7 @@ func (s *Server) Init(storage *cachestorage.CacheStorage) {
 		}
 
 		// Start the write and read threads.
-		go writeCounter(s)
+		go sendChain(s)
 		go readCounter(s)
 	}
 
@@ -109,17 +107,17 @@ func (s *Server) Init(storage *cachestorage.CacheStorage) {
 	<-sigCh
 }
 
-func writeCounter(s network.Stream) {
-	var counter uint64
+func sendChain(s network.Stream) {
+	// var counter uint64
 
 	for {
 		<-time.After(time.Second)
-		counter++
+		/* counter++
 
 		err := binary.Write(s, binary.BigEndian, counter)
 		if err != nil {
 			panic(err)
-		}
+		} */
 	}
 }
 
